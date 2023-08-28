@@ -441,7 +441,7 @@ const invoiceTerms = ref([
 const unitType = ref("Product");
 const invoiceItems = ref([
   {
-    itemDescription: "dfgh",
+    itemDescription: "",
     additionalDetails: "",
     quantity: 1,
     rate: 0, 

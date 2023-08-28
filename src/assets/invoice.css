@@ -183,7 +183,7 @@ background-color: #f1f1f1;
    margin-top: 1rem;
    padding: 0.2rem 1rem;
    background-color: red;
-   border-radius: 3px;
+   border-radius: 0.5rem;
    color: #fff;
    font-weight: 600;
 }
@@ -192,7 +192,7 @@ background-color: #f1f1f1;
    margin-top: 1rem;
    padding: 0.2rem 1rem;
    background-color:#488a22;
-   border-radius: 3px;
+   border-radius: 0.5rem;
    color: #fff;
    font-weight: 600;
 }
