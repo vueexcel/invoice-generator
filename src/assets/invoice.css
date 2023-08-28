@@ -292,6 +292,10 @@ width: 33%;
 table >tr{
    page-break-inside: avoid;
 }
+.aspect-ratio-16x9 {
+   padding-bottom: 56.25%; /* 9/16 aspect ratio */
+ }
+ 
 .preview-bill-to {
    margin-bottom: 30px;
    padding: 0;

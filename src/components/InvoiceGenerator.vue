@@ -11,7 +11,7 @@
       <button @click="printAndClose" v-if="preview">print</button>
       </div>
 
-      <div class="photo-drop" v-if="!preview">
+      <div class="photo-drop aspect-ratio-16x9" v-if="!preview">
         <label class="select-img-symbol" v-if="!selectedImage">
           <input
             type="file"
@@ -333,7 +333,7 @@
             </tr>
             <tr>
               <td class="preview-subtitle">AMOUNT DUE</td>
-              <td class="preview-field">{{ discountedTotal.toFixed(2) }}</td>
+              <td class="preview-field">{{currency}} {{ discountedTotal.toFixed(2) }}</td>
             </tr>
           </tbody>
         </table>
@@ -451,11 +451,11 @@ const invoiceItems = ref([
 const checkRateandDescription=ref(false)
 const invoicedata=ref([''])
 const togglePreview = () => {
-  console.log('object');
-  if (validateEmailAndPhone()) {
+  console.log('invoiceItems.value.rate',invoiceItems.value[0].rate)
+  if (validateEmailAndPhone()&&invoiceItems.value[0].rate!==(''||0)&&invoiceItems.value[0].itemDescription!=='') {
     preview.value = !preview.value;
   }
-  if(total.value=='0'){
+  if(invoiceItems.value[0].rate==(''||0)||invoiceItems.value[0].itemDescription==''){
     checkRateandDescription.value=true
   }else{
     checkRateandDescription.value=false

@@ -27,3 +27,8 @@ npm run dev
 ```sh
 npm run build
 ```
+### Open Chrome Extension Manager
+### Enable Developer Mode
+### Load the Extension
+### Select Extension Directory
+### Open Extension
