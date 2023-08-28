@@ -461,7 +461,7 @@ const togglePreview = () => {
     checkRateandDescription.value=false
   }
   invoicedata.value=invoiceItems.value.filter((e)=>{
-  return  e.itemDescription!==''&&e.rate!==(''||0)
+  return  e.itemDescription!==''&&e.rate!==(''&& 0)
 })
 };
 
@@ -868,8 +868,8 @@ select ,input,textarea{
 .invoice-details{
 width: 33%;
 }
-table >tr{
-   page-break-inside: avoid;
+tbody >tr{
+  page-break-inside: avoid;
 }
 .preview-bill-to {
    margin-bottom: 30px;
