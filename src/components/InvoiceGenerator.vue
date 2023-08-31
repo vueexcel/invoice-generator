@@ -1143,7 +1143,7 @@ const downloadPDF = async () => {
     image: { type: "jpeg", quality: 0.98 },
     html2canvas: { scale: 2 },
     jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-    pagebreak: { mode: 'avoid-all', after: '.avoidThisRow' }
+    pagebreak:  { mode: 'specify', avoid:'.avoidThisRow' } ,
   };
   await Html2pdf().from(preview).set(pdfOptions).save();
 };
