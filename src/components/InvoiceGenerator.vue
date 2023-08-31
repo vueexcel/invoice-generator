@@ -8,9 +8,14 @@
       </button>
       <p v-if="checkRateandDescription" style="color: red">Please filled the Rate </p>
         </div>
-      <button @click="printAndClose" v-if="preview">print</button>
+        <button @click="downloadPDF" v-if="preview">Download</button>
+        <div class="">
+          <button @click="sendEmail"  v-if="preview">Send Email</button>
+        <span v-if="sendEmailResponse" style="color: green">Email sent successfully</span>
+        </div>
+       
       </div>
-
+      
       <div class="photo-drop aspect-ratio-16x9" v-if="!preview">
         <label class="select-img-symbol" v-if="!selectedImage">
           <input
@@ -333,7 +338,7 @@
             </tr>
             <tr>
               <td class="preview-subtitle">AMOUNT DUE</td>
-              <td class="preview-field">{{currency}} {{ discountedTotal.toFixed(2) }}</td>
+              <td class="preview-field"> {{currency}} {{ discountedTotal.toFixed(2) }}</td>
             </tr>
           </tbody>
         </table>
@@ -392,6 +397,8 @@
 import { ref, computed } from "vue";
 import Html2pdf from "html2pdf.js";
 import Currency from "currency.js";
+import sendemail from './sendemail.vue';
+import axios from 'axios';
 const preview = ref(false);
 const preview_container = ref(null);
 const invoiceTitle = ref("INVOICE");
@@ -1128,7 +1135,18 @@ background-color: #f1f1f1;
 
   printWindow.print();
 };
-
+const downloadPDF = async () => {
+  const preview = preview_container.value;
+  const pdfOptions = {
+    margin: 10,
+    filename: `${invoiceTitle.value ? `${invoiceTitle.value}.pdf` : "invoice.pdf"}`,
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+    pagebreak: { mode: 'avoid-all', after: '.avoidThisRow' }
+  };
+  await Html2pdf().from(preview).set(pdfOptions).save();
+};
 const selectedImage = ref(null);
 const imageInput = ref(null);
 
@@ -1139,9 +1157,59 @@ const handleImageChange = (event) => {
     imageInput.value.value = null;
   }
 };
+const storedPdfDataUri=ref('')
 const removeLogo = () => {
   selectedImage.value = null;
 };
+const recipient = ref('');
+  const message = ref('');
+  const attachment = ref(null);
+  const sendEmailResponse=ref(false)
+const sendEmail = async () => {
+  const preview = preview_container.value;
+  const pdfOptions = {
+    margin: 10,
+    filename: `${invoiceTitle.value ? `${invoiceTitle.value}.pdf` : "invoice.pdf"}`,
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+    pagebreak: { mode: 'avoid-all', after: '.avoidThisRow' }
+  };
+
+  try {
+    const pdfDataUri = await Html2pdf().from(preview).set(pdfOptions).toPdf().output('datauristring');
+    const pdfBlob = dataURItoBlob(pdfDataUri);
+
+    const formData = new FormData();
+    formData.append('to', billToForm.value.email);
+    formData.append('message', message.value);
+    formData.append('attachment', pdfBlob, 'attachment.pdf'); // Use the proper filename here
+
+    const response = await axios.post('http://127.0.0.1:8000/api/send-email', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    sendEmailResponse.value=true
+    console.log(response.data.message);
+  } catch (error) {
+    console.error('Error sending email:', error);
+    // Handle error, show error message, etc.
+  }
+};
+
+// Function to convert data URI to Blob
+const dataURItoBlob = (dataURI) => {
+  const byteString = atob(dataURI.split(',')[1]);
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], { type: mimeString });
+};
+
 </script>
 
 <style scoped>
