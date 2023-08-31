@@ -295,7 +295,6 @@ table >tr{
 .avoidThisRow{
    page-break-inside: avoid;
 }
-
  
 .preview-bill-to {
    margin-bottom: 30px;
