@@ -9,8 +9,12 @@
   },
   "dependencies": {
     "currency.js": "^2.0.4",
-    "html2pdf.js": "^0.9.0",
-    "vue": "^3.3.4"
+    "emailjs-com": "^3.2.0",
+    "html2pdf.js": "^0.9.3",
+    "smtpjs": "^0.0.1",
+    "vue": "^3.3.4",
+    "vue-axios": "^3.5.2",
+    "vue-html2pdf": "^1.8.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.1",

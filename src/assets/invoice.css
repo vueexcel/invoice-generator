@@ -2,25 +2,24 @@ button {
    cursor: pointer;
    color: #fff;
 }
-
 .preview-download {
    display: flex;
    justify-content: space-between;
    margin-bottom: 1rem;
-gap: 4rem;
-position: fixed;
-    z-index: 9999;
-    min-width: 680px;
-    background: white;
-    top: 0;
+   gap: 4rem;
+   position: fixed;
+   z-index: 9999;
+   min-width: 680px;
+   background: white;
+   top: 0;
 }
 .preview_button{
    margin-top: 32px;
    display: flex;
    justify-content: space-between;
    margin-bottom: 1rem;
-gap: 4rem;
-width: -webkit-fill-available;
+  gap: 4rem;
+  width: -webkit-fill-available;
 }
 .preview_button button {
    height: 40px;
@@ -97,13 +96,25 @@ width: -webkit-fill-available;
    justify-content: space-between;
    align-items: center;
 }
-
+.email{
+   display: flex;
+   flex-direction: column;
+}
+@media print {
+   .avoidThisRow {
+     page-break-after: always;
+   }
+ }
 .form-fields label {
    margin-right: 1rem;
    font-weight: 500;
    font-size: 17px;
 }
-
+.form-fields-email{
+   height: 40px;
+   padding: 10px;
+   margin: 4px;
+}
 .form-fields input,
 .form-fields select {
    height: 35px;
@@ -292,10 +303,9 @@ width: 33%;
 table >tr{
    page-break-inside: avoid;
 }
-.aspect-ratio-16x9 {
-   padding-bottom: 56.25%; /* 9/16 aspect ratio */
- }
- 
+.avoidThisRow{
+   page-break-inside: avoid;
+}
 .preview-bill-to {
    margin-bottom: 30px;
    padding: 0;
@@ -448,6 +458,7 @@ th {
    vertical-align: middle;
     border-style: none;
     position: absolute;
+    object-fit: contain;
 }
 .discount{
    width: 45px;

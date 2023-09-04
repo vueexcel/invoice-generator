@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Invoice",
+    "name": "generate Invoice ",
     "version": "1.0.0",
-    "description": "Generate invoices",
+    "description": " invoices",
     "permissions": [
         "activeTab"
     ],

@@ -1,6 +1,6 @@
 <script setup>
-import HelloWorld from './components/InvoiceGenerator.vue'
-
+// import HelloWorld from './components/InvoiceGenerator.vue'
+import HelloWorld from './components/invoice.vue'
 </script>
 
 <template>
